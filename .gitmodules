@@ -1,0 +1,3 @@
+[submodule "third-party/gilbert"]
+	path = third-party/gilbert
+	url = https://github.com/jean-loutre/gilbert.git
