@@ -23,6 +23,27 @@ function Suite.glob()
 	})
 end
 
+function Suite.is_dir_is_file()
+	local temp_base = Path(vim.fn.tempname())
+	vim.fn.mkdir(tostring(temp_base))
+
+	local dont_exist = temp_base / "dont_exists"
+	assert_is_false(dont_exist:is_dir())
+	assert_is_false(dont_exist:is_file())
+
+	local temp_dir = temp_base / "peter"
+	vim.fn.mkdir(tostring(temp_dir))
+	assert_is_true(temp_dir:is_dir())
+	assert_is_false(temp_dir:is_file())
+
+	local temp_file = temp_base / "steven"
+	vim.fn.writefile({ "Kweek kweek" }, tostring(temp_file))
+	assert_is_false(temp_file:is_dir())
+	assert_is_true(temp_file:is_file())
+
+	vim.fn.delete(tostring(temp_base), "rf")
+end
+
 function Suite.to_absolute()
 	local steven = Path("tests/data/otters/peter.txt")
 	assert_equals(steven:to_absolute(), Path(vim.fn.getcwd()) / steven)

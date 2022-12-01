@@ -33,6 +33,20 @@ function Path:glob(pattern)
 	return Iterator.from_values(files)
 end
 
+--- Check if a path points to a directory
+--
+-- @return True if the path points to a directory, false otherwise
+function Path:is_dir()
+	return vim.fn.isdirectory(tostring(self)) ~= 0
+end
+
+--- Check if a path points to a file
+--
+-- @return True if the path points to a file, false otherwise
+function Path:is_file()
+	return vim.fn.filereadable(tostring(self)) ~= 0
+end
+
 --- Convert a relative path to an absolute.
 --
 -- Will consider vim.fn.getcwd as the base path to make the path absolute. If
