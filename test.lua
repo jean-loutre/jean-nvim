@@ -10,6 +10,7 @@ local function run()
 
 	pcall(function()
 		require("luacov")
+		print("Loaded luacov\n")
 	end)
 
 	local suites = {
