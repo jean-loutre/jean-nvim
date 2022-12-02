@@ -1,5 +1,5 @@
-local Buffer = require("gilbert.nvim.buffer")
-local TestSuite = require("gilbert.nvim.test-suite")
+local Buffer = require("jnvim.buffer")
+local TestSuite = require("jnvim.test-suite")
 
 local Suite = TestSuite()
 

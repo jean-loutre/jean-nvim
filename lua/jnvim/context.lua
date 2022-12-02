@@ -4,13 +4,13 @@
 -- in a context, then this context can be enabled to effectively enable those,
 -- and disabled, to restore previous state.
 --
--- @module gilbert.nvim.context
-local List = require("gilbert.list")
-local Map = require("gilbert.map")
-local Object = require("gilbert.object")
-local is_callable = require("gilbert.type").is_callable
-local is_number = require("gilbert.type").is_number
-local is_string = require("gilbert.type").is_string
+-- @module jnvim.context
+local List = require("jlua.list")
+local Map = require("jlua.map")
+local Object = require("jlua.object")
+local is_callable = require("jlua.type").is_callable
+local is_number = require("jlua.type").is_number
+local is_string = require("jlua.type").is_string
 
 local Context = Object:extend()
 

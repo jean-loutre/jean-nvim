@@ -1,4 +1,4 @@
-local Context = require("gilbert.nvim.context")
+local Context = require("jnvim.context")
 
 local Suite = {}
 

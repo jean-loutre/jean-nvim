@@ -1,4 +1,4 @@
-local Path = require("gilbert.nvim.path")
+local Path = require("jnvim.path")
 
 local Suite = {}
 

@@ -4,7 +4,7 @@ local function run()
 	package.path = table.concat({
 		"./lua/?.lua",
 		"./third-party/?.lua",
-		"./third-party/gilbert/lua/?.lua",
+		"./third-party/jean-lua/lua/?.lua",
 		"./tests/?.lua",
 	}, ";") .. ";" .. package.path
 

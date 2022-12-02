@@ -1,9 +1,9 @@
 --- Object oriented Neovim buffer wrapper.
--- @module gilbert.nvim.buffer
-local Object = require("gilbert.object")
-local Iterator = require("gilbert.iterator")
-local is_bool = require("gilbert.type").is_bool
-local is_number = require("gilbert.type").is_number
+-- @module jnvim.buffer
+local Object = require("jlua.object")
+local Iterator = require("jlua.iterator")
+local is_bool = require("jlua.type").is_bool
+local is_number = require("jlua.type").is_number
 
 local Buffer = Object:extend()
 
@@ -31,7 +31,7 @@ end
 
 --- Retun an iterator existing nvim buffers.
 --
--- @return A gilbert.iterator of Buffer.
+-- @return A jlua.iterator of Buffer.
 function Buffer.list()
 	return Iterator.from_values(vim.api.nvim_list_bufs()):map(Buffer)
 end
