@@ -12,6 +12,7 @@ local is_callable = require("jlua.type").is_callable
 local is_string = require("jlua.type").is_string
 
 local Autocommand = require("jnvim.autocommand")
+local UserCommand = require("jnvim.user-command")
 
 local Context = Object:extend()
 
@@ -21,6 +22,7 @@ function Context:init()
 	self._functions = Map()
 	self._autocommands = List()
 	self._saved_functions = Map()
+	self._user_commands = List()
 end
 
 --- Register a function in the context.
@@ -66,6 +68,18 @@ function Context:add_autocommand(events, options)
 	return self
 end
 
+--- Register an user command in the context.
+--
+-- The given user command will be callable when the context is enabled.
+function Context:add_user_command(name, callback, options)
+	self._user_commands:push({
+		name = name,
+		callback = callback,
+		options = options,
+	})
+	return self
+end
+
 --- Enable the context
 --
 -- Actually enable all registered commands, mappings etc. in vim and save the
@@ -82,6 +96,11 @@ function Context:enable()
 		command.instance = Autocommand(command.events, command.options)
 	end
 
+	for it in self._user_commands:iter() do
+		assert(it.instance == nil)
+		it.instance = UserCommand(it.name, it.callback, it.options)
+	end
+
 	self._enabled = true
 end
 
@@ -91,6 +110,11 @@ end
 -- previous state.
 function Context:disable()
 	assert(self._enabled)
+	for it in self._user_commands:iter() do
+		assert(it.instance)
+		it.instance:delete()
+		it.instance = nil
+	end
 
 	for command in self._autocommands:iter() do
 		assert(command.instance)

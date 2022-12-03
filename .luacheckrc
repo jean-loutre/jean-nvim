@@ -18,6 +18,8 @@ stds.nvim = {
 	read_globals = {
 		vim = {
 			fields = {
+				"cmd",
+
 				bo = {
 					read_only = false,
 					other_fields = true,
@@ -29,6 +31,8 @@ stds.nvim = {
 						"nvim_buf_set_name",
 						"nvim_command",
 						"nvim_create_autocmd",
+						"nvim_create_user_command",
+						"nvim_del_user_command",
 						"nvim_create_buf",
 						"nvim_del_autocmd",
 						"nvim_create_augroup",
