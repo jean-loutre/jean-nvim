@@ -1,8 +1,10 @@
 --- Wrapper around autocommand wrapping callbacks arguments in jlua / jnvim
 -- wrappers
 local Object = require("jlua.object")
-local Map = require("jlua.map")
+
 local Buffer = require("jnvim.buffer")
+local Path = require("jnvim.path")
+local map_table = require("jnvim.api").map_table
 
 --- Object-oriented wrapper around nvim autocommands
 local Autocommand = Object:extend()
@@ -67,17 +69,11 @@ function Autocommand:init(event, options)
 		local wrapped_callback = options.callback
 		options.callback = function(args)
 			assert(args.id == self._handle)
-			Map:wrap(args)
-
-			if args.group then
-				args.group = Autocommand.Group.from_handle(args.group)
-			end
-
-			if args.buf then
-				args.buf = Buffer.from_handle(args.buf)
-			end
-
-			return wrapped_callback(args)
+			return wrapped_callback(map_table(args, {
+				{ "group", Autocommand.Group.from_handle },
+				{ "buf", Buffer.from_handle },
+				{ "file", Path },
+			}))
 		end
 	end
 
