@@ -31,6 +31,8 @@ stds.nvim = {
 						"nvim_create_autocmd",
 						"nvim_create_buf",
 						"nvim_del_autocmd",
+						"nvim_create_augroup",
+						"nvim_del_augroup_by_id",
 						"nvim_exec_autocmds",
 						"nvim_get_current_buf",
 						"nvim_list_bufs",

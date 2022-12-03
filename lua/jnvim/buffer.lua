@@ -10,50 +10,51 @@ local Buffer = Object:extend()
 --- Initialize a buffer
 --
 -- @param buffer_handle The neovim buffer id.
-function Buffer:init(buffer_handle)
-	assert(is_number(buffer_handle))
-	self._buffer_handle = buffer_handle
-end
-
---- Create a new buffer
---
--- @param buffer_handle The neovim buffer id.
-function Buffer.create(list, scratch)
+function Buffer:init(list, scratch)
 	list = list or false
 	scratch = scratch or false
 
 	assert(is_bool(list))
 	assert(is_bool(scratch))
 
-	local handle = vim.api.nvim_create_buf(list, scratch)
-	return Buffer(handle)
+	self._handle = vim.api.nvim_create_buf(list, scratch)
+end
+
+--- Create a new buffer
+--
+-- @param buffer_handle The neovim buffer id.
+function Buffer.from_handle(handle)
+	assert(is_number(handle))
+	return Buffer:wrap({
+		_handle = handle,
+	})
 end
 
 --- Retun an iterator existing nvim buffers.
 --
 -- @return A jlua.iterator of Buffer.
 function Buffer.list()
-	return Iterator.from_values(vim.api.nvim_list_bufs()):map(Buffer)
+	return Iterator.from_values(vim.api.nvim_list_bufs()):map(Buffer.from_handle)
 end
 
 function Buffer.properties.handle:get()
-	return self._buffer_handle
+	return self._handle
 end
 
 function Buffer.properties.name:get()
-	return vim.api.nvim_buf_get_name(self._buffer_handle)
+	return vim.api.nvim_buf_get_name(self._handle)
 end
 
 function Buffer.properties.listed:get()
-	return vim.bo[self._buffer_handle].buflisted
+	return vim.bo[self._handle].buflisted
 end
 
 function Buffer.properties.listed:set(value)
-	vim.bo[self._buffer_handle].buflisted = value
+	vim.bo[self._handle].buflisted = value
 end
 
 function Buffer.properties.name:set(value)
-	return vim.api.nvim_buf_set_name(self._buffer_handle, value)
+	return vim.api.nvim_buf_set_name(self._handle, value)
 end
 
 return Buffer

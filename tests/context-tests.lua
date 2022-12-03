@@ -1,3 +1,4 @@
+local Buffer = require("jnvim.buffer")
 local Context = require("jnvim.context")
 
 local Suite = {}
@@ -22,7 +23,8 @@ end
 
 function Suite.add_autocommand()
 	local otter_said = "nothing"
-	local function tickle_otter()
+	local function tickle_otter(args)
+		assert(Buffer:is_class_of(args.buf))
 		otter_said = "kweekweekweek"
 	end
 

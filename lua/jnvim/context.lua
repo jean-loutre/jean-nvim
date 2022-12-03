@@ -9,8 +9,9 @@ local List = require("jlua.list")
 local Map = require("jlua.map")
 local Object = require("jlua.object")
 local is_callable = require("jlua.type").is_callable
-local is_number = require("jlua.type").is_number
 local is_string = require("jlua.type").is_string
+
+local Autocommand = require("jnvim.autocommand")
 
 local Context = Object:extend()
 
@@ -77,8 +78,8 @@ function Context:enable()
 	end
 
 	for command in self._autocommands:iter() do
-		assert(command.id == nil)
-		command.id = vim.api.nvim_create_autocmd(command.events, command.options)
+		assert(command.instance == nil)
+		command.instance = Autocommand(command.events, command.options)
 	end
 
 	self._enabled = true
@@ -92,9 +93,9 @@ function Context:disable()
 	assert(self._enabled)
 
 	for command in self._autocommands:iter() do
-		assert(is_number(command.id))
-		vim.api.nvim_del_autocmd(command.id)
-		command.id = nil
+		assert(command.instance)
+		command.instance:delete()
+		command.instance = nil
 	end
 
 	for name, func in self._functions:iter() do
