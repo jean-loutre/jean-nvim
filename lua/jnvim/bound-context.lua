@@ -40,7 +40,7 @@ end
 function BoundContext:bind_function(name)
 	assert(self[name] ~= nil)
 	self._wrapped:add_function(self._namespace .. name, function(...)
-		self[name](...)
+		return self[name](self, ...)
 	end)
 end
 
@@ -58,7 +58,7 @@ function BoundContext:bind_autocommand(event, name, options)
 	assert(self[name] ~= nil)
 	options = options or {}
 	options.callback = function(args)
-		self[name](args)
+		self[name](self, args)
 	end
 	self._wrapped:add_autocommand(event, options)
 end
@@ -110,8 +110,9 @@ end
 -- options: {str=*}
 --     Options to forward to nvim_create_user_command
 function BoundContext:bind_user_command(name, callback_name, options)
+	assert(self[callback_name], "Undefined function " .. callback_name)
 	self._wrapped:add_user_command(name, function(...)
-		return self[callback_name](...)
+		return self[callback_name](self, ...)
 	end, options)
 end
 
