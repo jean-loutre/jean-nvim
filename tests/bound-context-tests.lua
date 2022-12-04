@@ -64,4 +64,16 @@ function Suite.bind_user_autocommand()
 	assert_is_nil(context.upgrade.calls[2])
 end
 
+function Suite.execute_user_autocommand()
+	local context = BoundContext("otters_")
+	local upgrade = Mock()
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "otters_upgrade",
+		callback = upgrade:as_function(),
+	})
+	context:execute_user_autocommand("upgrade", "v2.0:turbo-propulser")
+	assert_equals(#upgrade.calls, 1)
+	assert_equals(upgrade.calls[1][1].data, "v2.0:turbo-propulser")
+end
+
 return Suite

@@ -80,4 +80,22 @@ function BoundContext:bind_user_autocommand(name, options)
 	options.pattern = self._namespace .. name
 	self:bind_autocommand("User", name, options)
 end
+
+--- Execute an user autocommand
+--
+-- This will set the pattern to {self._namespace}{name}.
+--
+-- Parameters
+-- ----------
+-- name : str
+--     Name of the autocommand to execute
+-- data : *
+--     Data to pass to executed autocommands
+function BoundContext:execute_user_autocommand(name, data)
+	vim.api.nvim_exec_autocmds("User", {
+		pattern = self._namespace .. name,
+		data = data,
+	})
+end
+
 return BoundContext
