@@ -98,4 +98,21 @@ function BoundContext:execute_user_autocommand(name, data)
 	})
 end
 
+--- Register a user command for a method on self
+--
+-- Parameters
+-- ----------
+-- name : str
+--     Name of the method to call on self when the autocommand is executed with
+--     the pattern {self._namespace}{name}
+-- callback_name : str
+--     Name of the field of self to call when the user command is executed.
+-- options: {str=*}
+--     Options to forward to nvim_create_user_command
+function BoundContext:bind_user_command(name, callback_name, options)
+	self._wrapped:add_user_command(name, function(...)
+		return self[callback_name](...)
+	end, options)
+end
+
 return BoundContext

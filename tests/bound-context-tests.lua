@@ -76,4 +76,22 @@ function Suite.execute_user_autocommand()
 	assert_equals(upgrade.calls[1][1].data, "v2.0:turbo-propulser")
 end
 
+function Suite.add_user_command()
+	local context = BoundContext("otters_")
+	context.upgrade = Mock()
+	context:bind_user_command("UpgradeOtter", "upgrade")
+
+	assert(not pcall(function()
+		vim.cmd(":UpgradeOtter")
+	end))
+
+	context:enable()
+	vim.cmd(":UpgradeOtter")
+	assert_equals(#context.upgrade.calls, 1)
+
+	context:disable()
+	assert(not pcall(function()
+		vim.cmd(":UpgradeOtter")
+	end))
+end
 return Suite
