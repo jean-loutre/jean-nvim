@@ -4,6 +4,8 @@ local TestSuite = {}
 
 function TestSuite.setup()
 	vim.cmd("set noswapfile")
+	vim.api.nvim_clear_autocmds({})
+
 	for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
 		if buffer ~= 0 then
 			vim.api.nvim_buf_delete(buffer, { force = true })
