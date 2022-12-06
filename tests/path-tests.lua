@@ -21,6 +21,11 @@ function Suite.glob()
 		tostring(data_dir / "otters/peter.txt"),
 		tostring(data_dir / "otters/steven.txt"),
 	})
+
+	assert_equals(Path.glob(data_dir / "**/*.txt"):to_list(), {
+		tostring(data_dir / "otters/peter.txt"),
+		tostring(data_dir / "otters/steven.txt"),
+	})
 end
 
 function Suite.is_dir_is_file()

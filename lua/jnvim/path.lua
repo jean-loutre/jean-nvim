@@ -23,14 +23,25 @@ function Path:dir()
 	end)
 end
 
---- Return files matching pattern in the directory pointed by this path.
+--- Return files matching a pattern.
+-- 
+-- If called with a self instance, will return files matching the given pattern
+-- in the directory pointed by self. If called with Path.glob(pattern) without
+-- an instance, will return a global glob.
 --
 -- @param pattern Pattern to match
 --
 -- @return A jlua.iterator of absolute paths matching the given pattern.
-function Path:glob(pattern)
-	local files = vim.fn.globpath(tostring(self), pattern, 0, true)
-	return iter(files)
+function Path.glob(pattern_or_self, pattern)
+	if pattern then
+		local self = pattern_or_self
+		assert(self and Path:is_class_of(self))
+		local files = vim.fn.globpath(tostring(self), pattern, 0, true)
+		return iter(files)
+	end
+
+	pattern = tostring(pattern_or_self)
+	return iter(vim.fn.glob(pattern, true, true))
 end
 
 --- Check if a path points to a directory
