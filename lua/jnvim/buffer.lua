@@ -1,7 +1,7 @@
 --- Object oriented Neovim buffer wrapper.
 -- @module jnvim.buffer
 local Object = require("jlua.object")
-local Iterator = require("jlua.iterator")
+local iter = require("jlua.iterator").iter
 local is_bool = require("jlua.type").is_bool
 local is_number = require("jlua.type").is_number
 
@@ -34,7 +34,7 @@ end
 --
 -- @return A jlua.iterator of Buffer.
 function Buffer.list()
-	return Iterator.from_values(vim.api.nvim_list_bufs()):map(Buffer.from_handle)
+	return iter(vim.api.nvim_list_bufs()):map(Buffer.from_handle)
 end
 
 function Buffer.properties.handle:get()

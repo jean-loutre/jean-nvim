@@ -1,6 +1,6 @@
 --- Gilbert Path augmentation with filesystem access from vim.
 -- @module jnvim.path
-local Iterator = require("jlua.iterator")
+local iter = require("jlua.iterator").iter
 local List = require("jlua.list")
 local Path = require("jlua.path")
 
@@ -18,7 +18,7 @@ end
 -- @return A jlua.iterator of Path
 function Path:dir()
 	local relative_children = vim.fn.readdir(tostring(self))
-	return Iterator.from_values(relative_children):map(function(path)
+	return iter(relative_children):map(function(path)
 		return self / path
 	end)
 end
@@ -30,7 +30,7 @@ end
 -- @return A jlua.iterator of absolute paths matching the given pattern.
 function Path:glob(pattern)
 	local files = vim.fn.globpath(tostring(self), pattern, 0, true)
-	return Iterator.from_values(files)
+	return iter(files)
 end
 
 --- Check if a path points to a directory
