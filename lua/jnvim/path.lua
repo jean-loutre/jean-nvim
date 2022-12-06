@@ -37,11 +37,11 @@ function Path.glob(pattern_or_self, pattern)
 		local self = pattern_or_self
 		assert(self and Path:is_class_of(self))
 		local files = vim.fn.globpath(tostring(self), pattern, 0, true)
-		return iter(files)
+		return iter(files):map(Path)
 	end
 
 	pattern = tostring(pattern_or_self)
-	return iter(vim.fn.glob(pattern, true, true))
+	return iter(vim.fn.glob(pattern, true, true)):map(Path)
 end
 
 --- Check if a path points to a directory

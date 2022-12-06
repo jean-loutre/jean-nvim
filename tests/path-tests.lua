@@ -18,13 +18,13 @@ end
 function Suite.glob()
 	local data_dir = Path.cwd() / "tests/data"
 	assert_equals(data_dir:glob("**/*.txt"):to_list(), {
-		tostring(data_dir / "otters/peter.txt"),
-		tostring(data_dir / "otters/steven.txt"),
+		data_dir / "otters/peter.txt",
+		data_dir / "otters/steven.txt",
 	})
 
 	assert_equals(Path.glob(data_dir / "**/*.txt"):to_list(), {
-		tostring(data_dir / "otters/peter.txt"),
-		tostring(data_dir / "otters/steven.txt"),
+		data_dir / "otters/peter.txt",
+		data_dir / "otters/steven.txt",
 	})
 end
 
