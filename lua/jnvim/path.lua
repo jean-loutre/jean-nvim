@@ -24,7 +24,7 @@ function Path:dir()
 end
 
 --- Return files matching a pattern.
--- 
+--
 -- If called with a self instance, will return files matching the given pattern
 -- in the directory pointed by self. If called with Path.glob(pattern) without
 -- an instance, will return a global glob.
