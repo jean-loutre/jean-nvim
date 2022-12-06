@@ -16,7 +16,7 @@ local BoundContext = Object:extend()
 --     functions. If not previded, no namespace will be prepended to the function
 --     names.
 function BoundContext:init(namespace)
-	self._namespace = namespace or ""
+	self._namespace = string.upper(namespace or "")
 	self._wrapped = Context()
 end
 
@@ -39,7 +39,8 @@ end
 --     self[name].
 function BoundContext:bind_function(name)
 	assert(self[name] ~= nil)
-	self._wrapped:add_function(self._namespace .. name, function(...)
+	local identifier = self:get_function_identifier(name)
+	self._wrapped:add_function(identifier, function(...)
 		return self[name](self, ...)
 	end)
 end
@@ -77,7 +78,7 @@ end
 --     Options to forward to Autocommand
 function BoundContext:bind_user_autocommand(name, options)
 	options = options or {}
-	options.pattern = self._namespace .. name
+	options.pattern = self:get_command_identifier(name)
 	self:bind_autocommand("User", name, options)
 end
 
@@ -93,7 +94,7 @@ end
 --     Data to pass to executed autocommands
 function BoundContext:execute_user_autocommand(name, data)
 	vim.api.nvim_exec_autocmds("User", {
-		pattern = self._namespace .. name,
+		pattern = self:get_command_identifier(name),
 		data = data,
 	})
 end
@@ -103,17 +104,24 @@ end
 -- Parameters
 -- ----------
 -- name : str
---     Name of the method to call on self when the autocommand is executed with
---     the pattern {self._namespace}{name}
--- callback_name : str
 --     Name of the field of self to call when the user command is executed.
 -- options: {str=*}
 --     Options to forward to nvim_create_user_command
-function BoundContext:bind_user_command(name, callback_name, options)
-	assert(self[callback_name], "Undefined function " .. callback_name)
-	self._wrapped:add_user_command(name, function(...)
-		return self[callback_name](self, ...)
+function BoundContext:bind_user_command(name, options)
+	assert(self[name], "Undefined function " .. name)
+	local identifier = self:get_command_identifier(name)
+	self._wrapped:add_user_command(identifier, function(...)
+		return self[name](self, ...)
 	end, options)
+end
+
+function BoundContext:get_function_identifier(name)
+	return string.lower(self._namespace) .. "#" .. name
+end
+
+function BoundContext:get_command_identifier(name)
+	local to_upper_camel_case = string.gsub(string.gsub(name, "^(%w)", string.upper), "_(%w)", string.upper)
+	return string.upper(self._namespace) .. to_upper_camel_case
 end
 
 return BoundContext
