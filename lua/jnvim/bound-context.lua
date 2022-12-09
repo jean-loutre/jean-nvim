@@ -92,10 +92,9 @@ end
 --     Name of the autocommand to execute
 -- data : *
 --     Data to pass to executed autocommands
-function BoundContext:execute_user_autocommand(name, data)
+function BoundContext:execute_user_autocommand(name)
 	vim.api.nvim_exec_autocmds("User", {
 		pattern = self:get_command_identifier(name),
-		data = data,
 	})
 end
 

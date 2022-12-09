@@ -1,5 +1,6 @@
 local Buffer = require("jnvim.buffer")
-local Mock = require("jlua.mock")
+local Call = require("jlua.test.call")
+local Mock = require("jlua.test.mock")
 local Context = require("jnvim.context")
 
 local Suite = {}
@@ -56,7 +57,7 @@ function Suite.add_user_command()
 
 	context:enable()
 	vim.cmd(":TickleOtter")
-	assert_equals(#mock.calls, 1)
+	assert(mock.call, { Call.any_arg })
 
 	context:disable()
 	assert(not pcall(function()

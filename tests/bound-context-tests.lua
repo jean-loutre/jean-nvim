@@ -1,27 +1,26 @@
-local Mock = require("jlua.mock")
+local Mock = require("jlua.test.mock")
+local Call = require("jlua.test.call")
+
 local BoundContext = require("jnvim.bound-context")
 
 local Suite = {}
 
 function Suite.bind_function()
-	vim.fn["ot#upgrade"] = function() end
-
 	local context = BoundContext("ott")
-	context.upgrade = Mock()
+	local mock = Mock()
+
+	context.upgrade = mock
 	context:bind_function("upgrade")
 
 	assert_false(pcall(function()
-		vim.fn["ott#upgrade"]("v2.0", "turbo-propulser")
+		vim.fn["ott#upgrade"]("v2.0")
 	end))
 
 	context:enable()
 	vim.fn["ott#upgrade"]("v2.0", "turbo-propulser")
-	assert_equals(context.upgrade.calls[1][1], context)
-	assert_equals(context.upgrade.calls[1][2], "v2.0")
-	assert_equals(context.upgrade.calls[1][3], "turbo-propulser")
+	assert(mock.call == Call(context, "v2.0", "turbo-propulser"))
 
 	context:disable()
-
 	assert_false(pcall(function()
 		vim.fn["ott#upgrade"]("v2.0", "turbo-propulser")
 	end))
@@ -29,63 +28,65 @@ end
 
 function Suite.bind_autocommand()
 	local context = BoundContext("ott")
-	context.upgrade = Mock()
+	local mock = Mock()
+
+	context.upgrade = mock
 	context:bind_autocommand("User", "upgrade")
 
-	vim.api.nvim_exec_autocmds("User", { data = "v2.0:turbo-propulser" })
-	assert_equals(context.upgrade.calls, {})
+	vim.api.nvim_exec_autocmds("User", {})
+	assert_equals(mock.calls, {})
 
 	context:enable()
-	vim.api.nvim_exec_autocmds("User", { data = "v2.0:turbo-propulser" })
-	assert_equals(#context.upgrade.calls, 1)
-	assert_equals(context.upgrade.calls[1][1], context)
-	assert_equals(context.upgrade.calls[1][2].data, "v2.0:turbo-propulser")
+	vim.api.nvim_exec_autocmds("User", {})
+	assert(mock.call == Call(context, Call.any_arg))
 
+	mock:reset()
 	context:disable()
 	vim.api.nvim_exec_autocmds("User", { data = "v2.0:turbo-propulser" })
-	assert_equals(context.upgrade.calls[1][1], context)
-	assert_equals(context.upgrade.calls[1][2].data, "v2.0:turbo-propulser")
-	assert_is_nil(context.upgrade.calls[2])
+	assert_equals(mock.calls, {})
 end
 
 function Suite.bind_user_autocommand()
 	local context = BoundContext("ott")
-	context.upgrade = Mock()
+	local mock = Mock()
+
+	context.upgrade = mock
 	context:bind_user_autocommand("upgrade")
 
-	vim.api.nvim_exec_autocmds("User", { pattern = "OTTUpgrade", data = "v2.0:turbo-propulser" })
-	assert_equals(context.upgrade.calls, {})
+	vim.api.nvim_exec_autocmds("User", { pattern = "OTTUpgrade" })
+	assert_equals(mock.calls, {})
 
 	context:enable()
-	vim.api.nvim_exec_autocmds("User", { pattern = "OTTUpgrade", data = "v2.0:turbo-propulser" })
-	assert_equals(#context.upgrade.calls, 1)
-	assert_equals(context.upgrade.calls[1][2].data, "v2.0:turbo-propulser")
+	vim.api.nvim_exec_autocmds("User", { pattern = "OTTUpgrade" })
+	assert(mock.call == Call(context, Call.any_arg))
 
-	vim.api.nvim_exec_autocmds("User", { pattern = "OTTDowngrade", data = "v1.0:shitty-propulser" })
-	assert_equals(#context.upgrade.calls, 1)
-	assert_equals(context.upgrade.calls[1][2].data, "v2.0:turbo-propulser")
+	mock:reset()
+	vim.api.nvim_exec_autocmds("User", { pattern = "OTTDowngrade" })
+	assert_equals(mock.calls, {})
 
 	context:disable()
-	vim.api.nvim_exec_autocmds("User", { pattern = "OTTUpgrade", data = "v2.0:turbo-propulser" })
-	assert_equals(context.upgrade.calls[1][2].data, "v2.0:turbo-propulser")
-	assert_is_nil(context.upgrade.calls[2])
+	vim.api.nvim_exec_autocmds("User", { pattern = "OTTUpgrade" })
+	assert_equals(mock.calls, {})
 end
 
 function Suite.execute_user_autocommand()
 	local context = BoundContext("ott")
-	local upgrade = Mock()
+	local mock = Mock()
+
 	vim.api.nvim_create_autocmd("User", {
 		pattern = "OTTUpgrade",
-		callback = upgrade:as_function(),
+		callback = mock:as_function(),
 	})
-	context:execute_user_autocommand("upgrade", "v2.0:turbo-propulser")
-	assert_equals(#upgrade.calls, 1)
-	assert_equals(upgrade.calls[1][1].data, "v2.0:turbo-propulser")
+
+	context:execute_user_autocommand("upgrade")
+	assert(mock.call == Call(Call.any_arg))
 end
 
 function Suite.add_user_command()
 	local context = BoundContext("ott")
-	context.upgrade = Mock()
+	local mock = Mock()
+
+	context.upgrade = mock
 	context:bind_user_command("upgrade")
 
 	assert(not pcall(function()
@@ -94,7 +95,7 @@ function Suite.add_user_command()
 
 	context:enable()
 	vim.cmd(":OTTUpgrade")
-	assert_equals(#context.upgrade.calls, 1)
+	assert(mock.call == Call(context, Call.any_arg))
 
 	context:disable()
 	assert(not pcall(function()
