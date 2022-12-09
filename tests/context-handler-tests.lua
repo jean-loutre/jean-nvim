@@ -42,7 +42,7 @@ function Suite.bind_autocommand()
 
 	mock:reset()
 	context:disable()
-	vim.api.nvim_exec_autocmds("User", { data = "v2.0:turbo-propulser" })
+	vim.api.nvim_exec_autocmds("User")
 	assert_equals(mock.calls, {})
 end
 
