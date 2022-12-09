@@ -15,7 +15,7 @@ local function run()
 
 	local suites = {
 		"buffer-tests",
-		"bound-context-tests",
+		"context-handler-tests",
 		"context-tests",
 		"path-tests",
 	}

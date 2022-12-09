@@ -1,12 +1,12 @@
 local Mock = require("jlua.test.mock")
 local Call = require("jlua.test.call")
 
-local BoundContext = require("jnvim.bound-context")
+local ContextHandler = require("jnvim.context-handler")
 
 local Suite = {}
 
 function Suite.bind_function()
-	local context = BoundContext("ott")
+	local context = ContextHandler("ott")
 	local mock = Mock()
 
 	context.upgrade = mock
@@ -27,7 +27,7 @@ function Suite.bind_function()
 end
 
 function Suite.bind_autocommand()
-	local context = BoundContext("ott")
+	local context = ContextHandler("ott")
 	local mock = Mock()
 
 	context.upgrade = mock
@@ -47,7 +47,7 @@ function Suite.bind_autocommand()
 end
 
 function Suite.bind_user_autocommand()
-	local context = BoundContext("ott")
+	local context = ContextHandler("ott")
 	local mock = Mock()
 
 	context.upgrade = mock
@@ -70,7 +70,7 @@ function Suite.bind_user_autocommand()
 end
 
 function Suite.execute_user_autocommand()
-	local context = BoundContext("ott")
+	local context = ContextHandler("ott")
 	local mock = Mock()
 
 	vim.api.nvim_create_autocmd("User", {
@@ -83,7 +83,7 @@ function Suite.execute_user_autocommand()
 end
 
 function Suite.add_user_command()
-	local context = BoundContext("ott")
+	local context = ContextHandler("ott")
 	local mock = Mock()
 
 	context.upgrade = mock
