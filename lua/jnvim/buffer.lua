@@ -5,6 +5,7 @@ local iter = require("jlua.iterator").iter
 local is_bool = require("jlua.type").is_bool
 local is_number = require("jlua.type").is_number
 
+--- @class jnvim.Buffer:jlua.Object
 local Buffer = Object:extend()
 
 --- Initialize a buffer
@@ -28,6 +29,19 @@ function Buffer.from_handle(handle)
 	return Buffer:wrap({
 		_handle = handle,
 	})
+end
+
+--- Get the option associated with this buffer
+--- @param key string The option name
+function Buffer:__index(key)
+	return vim.bo[self._handle][key]
+end
+
+--- Set the option associated with this buffer.
+--- @param key string The option name.
+--- @param value any The option value.
+function Buffer:__newindex(key, value)
+	vim.bo[self._handle][key] = value
 end
 
 --- Retun an iterator existing nvim buffers.
