@@ -23,6 +23,7 @@ function Context:init()
 	self._autocommands = List()
 	self._saved_functions = Map()
 	self._user_commands = List()
+	self._mappings = List()
 end
 
 --- Register a function in the context.
@@ -80,6 +81,17 @@ function Context:add_user_command(name, callback, options)
 	return self
 end
 
+--- Register a key mapping into the context
+function Context:map(mode, lhs, rhs, options)
+	self._mappings:push({
+		mode = mode,
+		lhs = lhs,
+		rhs = rhs,
+		options = options
+	})
+	return self
+end
+
 --- Enable the context
 --
 -- Actually enable all registered commands, mappings etc. in vim and save the
@@ -101,6 +113,16 @@ function Context:enable()
 		it.instance = UserCommand(it.name, it.callback, it.options)
 	end
 
+	for mapping in self._mappings:iter() do
+		local mode = mapping.mode
+		local lhs = mapping.lhs
+		local rhs = mapping.rhs
+		local options = mapping.options
+		local old_mapping = vim.fn["maparg"](lhs, mode, 0, 1)
+		mapping.old_mapping = old_mapping
+		vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+	end
+
 	self._enabled = true
 end
 
@@ -109,6 +131,15 @@ end
 -- Disable all registered commands, mappings, etc. in vim and restore the
 -- previous state.
 function Context:disable()
+	for mapping in self._mappings:iter() do
+		local old_mapping = mapping.old_mapping
+		if old_mapping ~= {} then
+			vim.fn["mapset"](mapping.mode, 0, old_mapping)
+		else
+			vim.api.nvim_del_keymap(mapping.mode, mapping.lhs)
+		end
+	end
+
 	assert(self._enabled)
 	for it in self._user_commands:iter() do
 		assert(it.instance)

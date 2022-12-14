@@ -38,10 +38,12 @@ stds.nvim = {
 						"nvim_create_user_command",
 						"nvim_del_augroup_by_id",
 						"nvim_del_autocmd",
+						"nvim_del_keymap",
 						"nvim_del_user_command",
 						"nvim_exec_autocmds",
 						"nvim_get_current_buf",
 						"nvim_list_bufs",
+						"nvim_set_keymap",
 					},
 				},
 
