@@ -10,6 +10,7 @@ local Map = require("jlua.map")
 local Object = require("jlua.object")
 local is_callable = require("jlua.type").is_callable
 local is_string = require("jlua.type").is_string
+local iter = require("jlua.iterator").iter
 
 local Autocommand = require("jnvim.autocommand")
 local UserCommand = require("jnvim.user-command")
@@ -133,7 +134,8 @@ end
 function Context:disable()
 	for mapping in self._mappings:iter() do
 		local old_mapping = mapping.old_mapping
-		if old_mapping ~= {} then
+		if iter(old_mapping):any() then
+			print(vim.inspect(old_mapping))
 			vim.fn["mapset"](mapping.mode, 0, old_mapping)
 		else
 			vim.api.nvim_del_keymap(mapping.mode, mapping.lhs)
