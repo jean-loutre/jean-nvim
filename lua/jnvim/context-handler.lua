@@ -119,7 +119,11 @@ function ContextHandler:get_function_identifier(name)
 end
 
 function ContextHandler:get_command_identifier(name)
-	local to_upper_camel_case = string.gsub(string.gsub(name, "^(%w)", string.upper), "_(%w)", string.upper)
+	local to_upper_camel_case = string.gsub(
+		string.gsub(name, "^(%w)", string.upper),
+		"_(%w)",
+		string.upper
+	)
 	return string.upper(self._namespace) .. to_upper_camel_case
 end
 

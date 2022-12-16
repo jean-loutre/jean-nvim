@@ -32,7 +32,10 @@ function Suite.add_autocommand()
 
 	local context = Context()
 
-	context:add_autocommand("User", { callback = tickle_otter, pattern = "Tickle" })
+	context:add_autocommand(
+		"User",
+		{ callback = tickle_otter, pattern = "Tickle" }
+	)
 	vim.api.nvim_exec_autocmds("User", { pattern = "Tickle" })
 	assert_equals(otter_said, "nothing")
 

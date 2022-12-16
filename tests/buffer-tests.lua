@@ -32,7 +32,10 @@ function Suite.name()
 	assert_equals(buffer.name, vim.fn.getcwd() .. "/peter")
 
 	buffer.name = "steven"
-	assert_equals(vim.api.nvim_buf_get_name(buffer_handle), vim.fn.getcwd() .. "/steven")
+	assert_equals(
+		vim.api.nvim_buf_get_name(buffer_handle),
+		vim.fn.getcwd() .. "/steven"
+	)
 end
 
 return Suite
