@@ -66,7 +66,7 @@ function Buffer:__index(key)
 	return vim.bo[self._handle][key]
 end
 
---- @function Buffer.properties.*.set()
+--- @function Buffer.properties.___.set()
 function Buffer:__newindex(key, value)
 	if key == "_handle" then
 		rawset(self, key, value)
