@@ -1,2 +1,4 @@
-site
+luacov.*
+.build
+doc/api/**/*.md
 luacov.*
