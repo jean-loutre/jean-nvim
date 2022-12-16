@@ -237,6 +237,9 @@ class Document(BaseDocument):
         )
 
     def _add_parameters(self, function: LuaFunction, scope = ""):
+        if not function.params:
+            return
+
         self.add_table(
             ["Parameter", "Type", "Description", "Default"],
             [
