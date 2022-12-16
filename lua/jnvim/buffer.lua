@@ -59,14 +59,6 @@ function Buffer.properties.name:get()
 	return vim.api.nvim_buf_get_name(self._handle)
 end
 
-function Buffer.properties.listed:get()
-	return vim.bo[self._handle].buflisted
-end
-
-function Buffer.properties.listed:set(value)
-	vim.bo[self._handle].buflisted = value
-end
-
 function Buffer.properties.name:set(value)
 	return vim.api.nvim_buf_set_name(self._handle, value)
 end
