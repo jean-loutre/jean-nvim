@@ -1,5 +1,6 @@
---- Object oriented Neovim buffer wrapper.
--- @module jnvim.buffer
+--- Object oriented wrapper around Neovim buffer.
+---
+-- @classmod jnvim.buffer
 local Object = require("jlua.object")
 local iter = require("jlua.iterator").iter
 local is_bool = require("jlua.type").is_bool
@@ -11,14 +12,13 @@ local Buffer = Object:extend()
 --- Initialize a buffer
 --
 -- @param buffer_handle The neovim buffer id.
-function Buffer:init(list, scratch)
-	list = list or false
-	scratch = scratch or false
+function Buffer:init(options)
+	options = options or {}
+	self._handle = vim.api.nvim_create_buf(true, true)
 
-	assert(is_bool(list))
-	assert(is_bool(scratch))
-
-	self._handle = vim.api.nvim_create_buf(list, scratch)
+	for option, value in iter(options) do
+		self[option] = value
+	end
 end
 
 --- Create a new buffer
@@ -41,7 +41,11 @@ end
 --- @param key string The option name.
 --- @param value any The option value.
 function Buffer:__newindex(key, value)
-	vim.bo[self._handle][key] = value
+	if key == "_handle" then
+		rawset(self, key, value)
+	else
+		vim.bo[self._handle][key] = value
+	end
 end
 
 --- Retun an iterator existing nvim buffers.
@@ -61,6 +65,10 @@ end
 
 function Buffer.properties.name:set(value)
 	return vim.api.nvim_buf_set_name(self._handle, value)
+end
+
+function Buffer:append(lines)
+	vim.api.nvim_buf_set_lines(self._handle, -1, -1, 1, lines)
 end
 
 return Buffer

@@ -88,7 +88,7 @@ function Context:map(mode, lhs, rhs, options)
 		mode = mode,
 		lhs = lhs,
 		rhs = rhs,
-		options = options
+		options = options,
 	})
 	return self
 end
