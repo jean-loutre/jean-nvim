@@ -29,6 +29,7 @@ stds.nvim = {
 					fields = {
 						"nvim_buf_delete",
 						"nvim_buf_get_name",
+						"nvim_buf_set_lines",
 						"nvim_buf_set_name",
 						"nvim_clear_autocmds",
 						"nvim_command",

@@ -135,7 +135,6 @@ function Context:disable()
 	for mapping in self._mappings:iter() do
 		local old_mapping = mapping.old_mapping
 		if iter(old_mapping):any() then
-			print(vim.inspect(old_mapping))
 			vim.fn["mapset"](mapping.mode, 0, old_mapping)
 		else
 			vim.api.nvim_del_keymap(mapping.mode, mapping.lhs)

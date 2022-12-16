@@ -7,7 +7,6 @@
 --- @classmod jnvim.buffer.Buffer
 local Object = require("jlua.object")
 local iter = require("jlua.iterator").iter
-local is_bool = require("jlua.type").is_bool
 local is_number = require("jlua.type").is_number
 
 --- @class jnvim.Buffer
