@@ -106,12 +106,12 @@ end
 --     Name of the field of self to call when the user command is executed.
 -- options: {str=*}
 --     Options to forward to nvim_create_user_command
-function ContextHandler:bind_user_command(name, options)
+function ContextHandler:bind_user_command(name, options, buffer)
 	assert(self[name], "Undefined function " .. name)
 	local identifier = self:get_command_identifier(name)
 	self._wrapped:add_user_command(identifier, function(...)
 		return self[name](self, ...)
-	end, options)
+	end, options, buffer)
 end
 
 function ContextHandler:get_function_identifier(name)

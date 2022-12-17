@@ -5,9 +5,10 @@
 --- call the nvim lua api.
 ---
 --- @classmod jnvim.buffer.Buffer
+local List = require("jlua.list")
 local Object = require("jlua.object")
-local iter = require("jlua.iterator").iter
 local is_number = require("jlua.type").is_number
+local iter = require("jlua.iterator").iter
 
 --- @class jnvim.Buffer
 local Buffer = Object:extend()
@@ -51,6 +52,13 @@ function Buffer.from_handle(handle)
 	})
 end
 
+--- @function Buffer.properties.lines:get()
+--
+--- @return number
+function Buffer.properties.handle:get()
+	return self._handle
+end
+
 --- @function Buffer.properties.___.get()
 --- Get or set an option for this buffer. Wraps
 --- [vim.bo](https://neovim.io/doc/user/lua.html#vim.bo). See
@@ -89,13 +97,6 @@ function Buffer.list()
 	return iter(vim.api.nvim_list_bufs()):map(Buffer.from_handle)
 end
 
---- @function Buffer.properties.handle:get()
---- Numerical id this buffer wraps. See
---- @return number
-function Buffer.properties.handle:get()
-	return self._handle
-end
-
 --- @function Buffer.properties.name:get()
 --- Name of the buffer.
 --- Wraps vim.api.nvim_buf_get_name and vim.api.nvim_buf_set_name.
@@ -109,17 +110,54 @@ function Buffer.properties.name:set(value)
 	return vim.api.nvim_buf_set_name(self._handle, value)
 end
 
---- Append lines to this buffer.
+--- Get the text lines of the buffer.
 ---
---- Wraps vim.api.nvim_buf_set_lines.
+--- See vim.api.nvim_buf_get_lines. By default, return all the lines of the
+--- buffer.
+---
+--- @usage
+--- buffer:get_lines(2, -2)
+--- -- Get the lines from the second to the second before the end.
+---
+--- @tparam[opt=0] number start The starting line.
+--- @tparam[opt=-1] number end_  The ending line.
+--- @return jlua.list A list of string.
+function Buffer:get_lines(start, end_)
+	start = start or 0
+	end_ = end_ or -1
+	return List(vim.api.nvim_buf_get_lines(self._handle, start, end_, true))
+end
+
+--- Replaces text in a buffer.
+---
+--- Wraps vim.api.nvim_buf_set_lines. If start and end_ are not provided, the
+--- lines are appended to the buffer.
 ---
 --- @usage
 --- buffer:set_lines({"jean-jean", "jean-jean jacques"})
 ---
 --- @tparam [string] lines The text line to append to the buffer.
+--- @tparam[opt=-1] number start The starting line.
+--- @tparam[opt=-1] number end_  The ending line.
 --- @return jlua.iterator An iterator of buffer.
-function Buffer:append(lines)
-	vim.api.nvim_buf_set_lines(self._handle, -1, -1, 1, lines)
+function Buffer:set_lines(lines, start, end_)
+	start = start or -1
+	end_ = end_ or -1
+	vim.api.nvim_buf_set_lines(self._handle, start, end_, 1, lines)
+end
+
+--- Delete a buffer.
+---
+--- Wraps vim.api.nvim_buf_delete. See this link for more informations about
+--- the options.
+---
+--- @usage
+--- buffer:delete({force = true})
+---
+--- @tparam[opt={}] [table] options Delete options
+function Buffer:delete(options)
+	options = options or {}
+	vim.api.nvim_buf_delete(self._handle, options)
 end
 
 return Buffer

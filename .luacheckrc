@@ -27,7 +27,10 @@ stds.nvim = {
 				},
 				api = {
 					fields = {
+						"nvim_buf_create_user_command",
+						"nvim_buf_del_user_command",
 						"nvim_buf_delete",
+						"nvim_buf_get_lines",
 						"nvim_buf_get_name",
 						"nvim_buf_set_lines",
 						"nvim_buf_set_name",
@@ -45,6 +48,7 @@ stds.nvim = {
 						"nvim_get_current_buf",
 						"nvim_list_bufs",
 						"nvim_set_keymap",
+						"nvim_win_set_buf",
 					},
 				},
 

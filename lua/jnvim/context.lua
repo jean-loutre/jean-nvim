@@ -73,11 +73,12 @@ end
 --- Register an user command in the context.
 --
 -- The given user command will be callable when the context is enabled.
-function Context:add_user_command(name, callback, options)
+function Context:add_user_command(name, callback, options, buffer)
 	self._user_commands:push({
 		name = name,
 		callback = callback,
 		options = options,
+		buffer = buffer,
 	})
 	return self
 end
@@ -111,7 +112,7 @@ function Context:enable()
 
 	for it in self._user_commands:iter() do
 		assert(it.instance == nil)
-		it.instance = UserCommand(it.name, it.callback, it.options)
+		it.instance = UserCommand(it.name, it.callback, it.options, it.buffer)
 	end
 
 	for mapping in self._mappings:iter() do

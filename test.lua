@@ -17,6 +17,7 @@ local function run()
 		"buffer-tests",
 		"context-handler-tests",
 		"context-tests",
+		"logging-tests",
 		"path-tests",
 	}
 
