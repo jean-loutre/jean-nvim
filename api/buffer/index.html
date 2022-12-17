@@ -499,8 +499,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#append" class="md-nav__link">
-    append()
+  <a href="#get_lines" class="md-nav__link">
+    get_lines()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_lines" class="md-nav__link">
+    set_lines()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    delete()
   </a>
   
 </li>
@@ -672,8 +686,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#append" class="md-nav__link">
-    append()
+  <a href="#get_lines" class="md-nav__link">
+    get_lines()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_lines" class="md-nav__link">
+    set_lines()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    delete()
   </a>
   
 </li>
@@ -749,16 +777,16 @@ the buffer name will be set through the <a href='/api/buffer/#buffer.name'>Buffe
 </thead>
 <tbody>
 <tr>
+<td align="center"><code>lines</code></td>
+<td align="center"><code>number</code></td>
+<td align="center">read-only</td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="center"><code>___</code></td>
 <td align="center"><code>any</code></td>
 <td align="center">read/write</td>
 <td align="left">Get or set an option for this buffer. Wraps <a href="https://neovim.io/doc/user/lua.html#vim.bo">vim.bo</a>. See <a href="https://neovim.io/doc/user/options.html#option-summary">the nvim documentation</a> for a list of available options.</td>
-</tr>
-<tr>
-<td align="center"><code>handle</code></td>
-<td align="center"><code>number</code></td>
-<td align="center">read-only</td>
-<td align="left">Numerical id this buffer wraps. See</td>
 </tr>
 <tr>
 <td align="center"><code>name</code></td>
@@ -826,10 +854,61 @@ with the given handle (buf).</p>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kr">end</span>
 </code></pre></div>
 <hr />
-<h3 id="append">append()<a class="headerlink" href="#append" title="Permanent link">&para;</a></h3>
-<p>Append lines to this buffer.</p>
+<h3 id="get_lines">get_lines()<a class="headerlink" href="#get_lines" title="Permanent link">&para;</a></h3>
+<p>Get the text lines of the buffer.</p>
 <p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">append</span><span class="p">(</span><span class="n">lines</span><span class="p">:</span> <span class="p">[</span><span class="n">string</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">iterator</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">get_lines</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">end_</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">list</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>start</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The starting line.</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left"><code>end_</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The ending line.</td>
+<td align="left">-1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="left">Returns</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>jlua.list</code></td>
+<td align="left">A list of string.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<p>See <a href="https://neovim.io/doc/user/api.html#nvim_buf_get_lines()">nvim_buf_get_lines</a>. By default, return all the lines of the
+buffer.</p>
+<p><strong>Usage</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">get_lines</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1">-- Get the lines from the second to the second before the end.</span>
+</code></pre></div>
+<hr />
+<h3 id="set_lines">set_lines()<a class="headerlink" href="#set_lines" title="Permanent link">&para;</a></h3>
+<p>Replaces text in a buffer.</p>
+<p><strong>Signature</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">set_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">:</span> <span class="p">[</span><span class="n">string</span><span class="p">],</span> <span class="n">start</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">end_</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">iterator</span>
 </code></pre></div>
 <table>
 <thead>
@@ -846,6 +925,18 @@ with the given handle (buf).</p>
 <td align="left"><code>[string]</code></td>
 <td align="left">The text line to append to the buffer.</td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>start</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The starting line.</td>
+<td align="left">-1</td>
+</tr>
+<tr>
+<td align="left"><code>end_</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The ending line.</td>
+<td align="left">-1</td>
 </tr>
 </tbody>
 </table>
@@ -864,9 +955,40 @@ with the given handle (buf).</p>
 </tbody>
 </table>
 <p><strong>Notes</strong></p>
-<p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_buf_set_lines()">nvim_buf_set_lines</a>.</p>
+<p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_buf_set_lines()">nvim_buf_set_lines</a>. If start and end_ are not provided, the
+lines are appended to the buffer.</p>
 <p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">set_lines</span><span class="p">({</span><span class="s2">&quot;jean-jean&quot;</span><span class="p">,</span> <span class="s2">&quot;jean-jean jacques&quot;</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">set_lines</span><span class="p">({</span><span class="s2">&quot;jean-jean&quot;</span><span class="p">,</span> <span class="s2">&quot;jean-jean jacques&quot;</span><span class="p">})</span>
+</code></pre></div>
+<hr />
+<h3 id="delete">delete()<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h3>
+<p>Delete a buffer.</p>
+<p><strong>Signature</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">delete</span><span class="p">(</span><span class="n">options</span><span class="p">:</span> <span class="p">[</span><span class="n">table</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>options</code></td>
+<td align="left"><code>[table]</code></td>
+<td align="left">Delete options</td>
+<td align="left">{}</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_buf_delete()">nvim_buf_delete</a>. See this link for more informations about
+the options.</p>
+<p><strong>Usage</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">delete</span><span class="p">({</span><span class="n">force</span> <span class="o">=</span> <span class="kc">true</span><span class="p">})</span>
 </code></pre></div>
 <hr />
 

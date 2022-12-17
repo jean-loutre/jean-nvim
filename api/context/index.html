@@ -850,7 +850,7 @@
 <h5 id="add_user_command">add_user_command()<a class="headerlink" href="#add_user_command" title="Permanent link">&para;</a></h5>
 <p>Register an user command in the context.</p>
 <p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">function</span> <span class="nc">Context</span><span class="p">:</span><span class="nf">add_user_command</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">any</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">any</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">function</span> <span class="nc">Context</span><span class="p">:</span><span class="nf">add_user_command</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">any</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">any</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">any</span><span class="p">,</span> <span class="n">buffer</span><span class="p">:</span> <span class="n">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
 </code></pre></div>
 <table>
 <thead>
@@ -876,6 +876,12 @@
 </tr>
 <tr>
 <td align="left"><code>options</code>*</td>
+<td align="left"><code>any</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>buffer</code>*</td>
 <td align="left"><code>any</code></td>
 <td align="left"></td>
 <td align="left"></td>
