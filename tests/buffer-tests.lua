@@ -51,6 +51,7 @@ function Suite.edit()
 		0,
 		{ "i", "have", "4", "lines" }
 	)
+
 	with(buffer:edit(), function(range)
 		assert(Range:is_class_of(range))
 		local buffer_text = vim.api.nvim_buf_get_text(
@@ -63,6 +64,14 @@ function Suite.edit()
 		)
 		assert_equals(buffer_text, { "i", "have", "4", "lines" })
 	end)
+
+	assert(buffer.modifiable)
+	buffer.modifiable = false
+
+	with(buffer:edit(), function()
+		assert(buffer.modifiable)
+	end)
+	assert(not buffer.modifiable)
 end
 
 return Suite

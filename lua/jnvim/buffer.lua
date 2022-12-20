@@ -115,14 +115,31 @@ function Buffer.list()
 end
 
 --- @function Buffer:edit
---- Context manager scoping a jnvim.range.Range over the whole buffer.
+---
+--- Context manager getting a jnvim.range.Range over the whole buffer as
+--- context argument.
+---
+--- If the buffer has the option modifiable = false, it will be
+--- automatically set to true in the context, and reset to false when the
+--- context is exited.
 ---
 --- See jnvim.range.Range for the why of a context manager here.
 Buffer.edit = context_manager(function(self)
 	local bounds_namespace = Namespace()
 	local line_count = vim.api.nvim_buf_line_count(self._handle)
 	local range = Range(self, bounds_namespace, 0, 0, line_count - 1, -1)
+
+	local modifiable = self.modifiable
+	if not modifiable then
+		self.modifiable = true
+	end
+
 	coroutine.yield(range)
+
+	if not modifiable then
+		self.modifiable = false
+	end
+
 	range:clear_namespace(bounds_namespace)
 end)
 
