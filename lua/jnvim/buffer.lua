@@ -63,6 +63,19 @@ function Buffer.properties.handle:get()
 	return self._handle
 end
 
+--- @function Buffer.properties.name:get()
+--- Name of the buffer.
+--- Wraps vim.api.nvim_buf_get_name and vim.api.nvim_buf_set_name.
+--- @return string
+function Buffer.properties.name:get()
+	return vim.api.nvim_buf_get_name(self._handle)
+end
+
+--- @function Buffer.properties.name:set()
+function Buffer.properties.name:set(value)
+	return vim.api.nvim_buf_set_name(self._handle, value)
+end
+
 --- @function Buffer.properties.___.get()
 --- Get or set an option for this buffer. Wraps
 --- [vim.bo](https://neovim.io/doc/user/lua.html#vim.bo). See
@@ -99,19 +112,6 @@ end
 --- @return jlua.iterator An iterator of buffer.
 function Buffer.list()
 	return iter(vim.api.nvim_list_bufs()):map(Buffer.from_handle)
-end
-
---- @function Buffer.properties.name:get()
---- Name of the buffer.
---- Wraps vim.api.nvim_buf_get_name and vim.api.nvim_buf_set_name.
---- @return string
-function Buffer.properties.name:get()
-	return vim.api.nvim_buf_get_name(self._handle)
-end
-
---- @function Buffer.properties.name:set()
-function Buffer.properties.name:set(value)
-	return vim.api.nvim_buf_set_name(self._handle, value)
 end
 
 --- @function Buffer:edit
