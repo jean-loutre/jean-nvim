@@ -5,6 +5,7 @@ local bind = require("jlua.functional").bind
 local format = require("jlua.string").format
 local get_level_string = require("jlua.logging").get_level_string
 local get_logger = require("jlua.logging").get_logger
+local with = require("jlua.context").with
 
 local Buffer = require("jnvim.buffer")
 local Context = require("jnvim.context")
@@ -51,13 +52,9 @@ function LogBuffer:_handle(record)
 	local log_message = format(record.format, record.args)
 	local log_level = get_level_string(record.level)
 	local log_line = format("{}:{}:{}", log_level, record.logger, log_message)
-	self._buffer.modifiable = true
-	if self._buffer:get_lines(0, 1)[1] == "" then
-		self._buffer:set_lines({ log_line }, 0, -1)
-	else
-		self._buffer:set_lines({ log_line })
-	end
-	self._buffer.modifiable = false
+	with(self._buffer:edit(), function(buffer)
+		buffer:insert({ log_line, "" })
+	end)
 end
 
 function LogBuffer:_set_level(args)
