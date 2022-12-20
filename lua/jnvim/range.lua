@@ -139,22 +139,56 @@ function Range:clear_namespace(namespace)
 	)
 end
 
---[[
 --- Insert lines at the given position, relative to the range boundaries.
---- if start_row is negative, it will be interpreted relative to the range end
---- boundary. Else, relative to the range start boundary.
+---
+--- row and col are 0-indexed. If row is negative, it will be interpreted
+--- as relative to the range end boundary. If no row or col is provided,
+--- the content will be inserted at the end of this range.
 --
 --- @tparam content {string} Table of lines to insert.
---- @tparam number row Namespace to clear.
+--- @tparam[opt=-1] number row Insert row, relative to this range.
+--- @tparam[opt=-1] number col Insert col, relative to this range.
+--- @return jnvim.range.Range Range covering the inserted content.
 function Range:insert(content, row, col)
-	vim.api.nvim_buf_clear_namespace(
+	row = row or -1
+	col = col or -1
+
+	local start = self.start
+	local end_ = self.end_
+
+	if row < 0 then
+		row = end_.row + row + 1
+	else
+		row = start.row + row
+	end
+
+	if row == start.row and col > 0 then
+		col = start.col + col
+	elseif row == end_.row and col < 0 then
+		col = end_.col + col + 1
+	elseif col < 0 then
+		local line = vim.api.nvim_buf_get_lines(
+			self._buffer.handle,
+			row,
+			row + 1,
+			true
+		)[1]
+		col = col + #line
+	end
+
+	local range =
+		Range(self._buffer, self._bounds_namespace, row, col, row, col)
+	range.text = content
+
+	vim.api.nvim_buf_set_extmark(
 		self._buffer.handle,
-		namespace.id,
-		self.start.row,
-		self.end_.row
+		self._bounds_namespace.id,
+		start.row,
+		start.col,
+		{ id = self._start_mark_id }
 	)
+
+	return range
 end
-]]
---
 
 return Range
