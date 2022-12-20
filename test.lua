@@ -19,6 +19,7 @@ local function run()
 		"context-tests",
 		"logging-tests",
 		"path-tests",
+		"range-tests",
 	}
 
 	-- To make assert functions globally accessible

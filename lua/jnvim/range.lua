@@ -90,6 +90,44 @@ function Range.properties.end_:get()
 	}
 end
 
+--- @function Range.properties.text:get()
+--- Get the lines of text in this range
+--- @treturn {string} Lines in this range
+function Range.properties.text:get()
+	local start = self.start
+	local end_ = self.end_
+	return vim.api.nvim_buf_get_text(
+		self._buffer.handle,
+		start.row,
+		start.col,
+		end_.row,
+		end_.col,
+		{}
+	)
+end
+
+--- @function Range.properties.text:set()
+function Range.properties.text:set(lines)
+	local start = self.start
+	local end_ = self.end_
+	vim.api.nvim_buf_set_text(
+		self._buffer.handle,
+		start.row,
+		start.col,
+		end_.row,
+		end_.col,
+		lines
+	)
+
+	vim.api.nvim_buf_set_extmark(
+		self._buffer.handle,
+		self._bounds_namespace.id,
+		start.row,
+		start.col,
+		{ id = self._start_mark_id }
+	)
+end
+
 --- Clears a namespace in the pointed buffer's range area.
 --- @tparam jnvim.namespace.Namespace namespace Namespace to clear.
 function Range:clear_namespace(namespace)
@@ -100,5 +138,23 @@ function Range:clear_namespace(namespace)
 		self.end_.row
 	)
 end
+
+--[[
+--- Insert lines at the given position, relative to the range boundaries.
+--- if start_row is negative, it will be interpreted relative to the range end
+--- boundary. Else, relative to the range start boundary.
+--
+--- @tparam content {string} Table of lines to insert.
+--- @tparam number row Namespace to clear.
+function Range:insert(content, row, col)
+	vim.api.nvim_buf_clear_namespace(
+		self._buffer.handle,
+		namespace.id,
+		self.start.row,
+		self.end_.row
+	)
+end
+]]
+--
 
 return Range
