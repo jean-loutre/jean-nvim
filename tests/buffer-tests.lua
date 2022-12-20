@@ -1,4 +1,7 @@
 local Buffer = require("jnvim.buffer")
+local Range = require("jnvim.range")
+local with = require("jlua.context").with
+
 local TestSuite = require("jnvim.test-suite")
 
 local Suite = TestSuite()
@@ -36,6 +39,30 @@ function Suite.name()
 		vim.api.nvim_buf_get_name(buffer_handle),
 		vim.fn.getcwd() .. "/steven"
 	)
+end
+
+function Suite.edit()
+	local buffer = Buffer()
+	vim.api.nvim_buf_set_text(
+		buffer.handle,
+		0,
+		0,
+		0,
+		0,
+		{ "i", "have", "4", "lines" }
+	)
+	with(buffer:edit(), function(range)
+		assert(Range:is_class_of(range))
+		local buffer_text = vim.api.nvim_buf_get_text(
+			buffer.handle,
+			range.start.row,
+			range.start.col,
+			range.end_.row,
+			range.end_.col,
+			{}
+		)
+		assert_equals(buffer_text, { "i", "have", "4", "lines" })
+	end)
 end
 
 return Suite

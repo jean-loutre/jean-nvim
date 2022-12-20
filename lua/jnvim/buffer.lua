@@ -7,8 +7,12 @@
 --- @classmod jnvim.buffer.Buffer
 local List = require("jlua.list")
 local Object = require("jlua.object")
+local context_manager = require("jlua.context").context_manager
 local is_number = require("jlua.type").is_number
 local iter = require("jlua.iterator").iter
+
+local Namespace = require("jnvim.namespace")
+local Range = require("jnvim.range")
 
 --- @class jnvim.Buffer
 local Buffer = Object:extend()
@@ -109,6 +113,18 @@ end
 function Buffer.properties.name:set(value)
 	return vim.api.nvim_buf_set_name(self._handle, value)
 end
+
+--- @function Buffer:edit
+--- Context manager scoping a jnvim.range.Range over the whole buffer.
+---
+--- See jnvim.range.Range for the why of a context manager here.
+Buffer.edit = context_manager(function(self)
+	local bounds_namespace = Namespace()
+	local line_count = vim.api.nvim_buf_line_count(self._handle)
+	local range = Range(self, bounds_namespace, 0, 0, line_count - 1, -1)
+	coroutine.yield(range)
+	range:clear_namespace(bounds_namespace)
+end)
 
 --- Get the text lines of the buffer.
 ---
