@@ -389,6 +389,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -499,6 +503,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#edit" class="md-nav__link">
+    edit()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get_lines" class="md-nav__link">
     get_lines()
   </a>
@@ -581,8 +592,36 @@
   
   
     <li class="md-nav__item">
+      <a href="../namespace/" class="md-nav__link">
+        Namespace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../path/" class="md-nav__link">
         unknown
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../range/" class="md-nav__link">
+        Range
       </a>
     </li>
   
@@ -681,6 +720,13 @@
           <li class="md-nav__item">
   <a href="#list" class="md-nav__link">
     list()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit" class="md-nav__link">
+    edit()
   </a>
   
 </li>
@@ -854,10 +900,18 @@ with the given handle (buf).</p>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kr">end</span>
 </code></pre></div>
 <hr />
+<h3 id="edit">edit()<a class="headerlink" href="#edit" title="Permanent link">&para;</a></h3>
+<p><a href='/api/context/#context'>Context</a> manager scoping a <a href='/api/range'><a href='/api/range/#range'>Range</a></a> over the whole buffer.</p>
+<p><strong>Signature</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">edit</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
+</code></pre></div>
+<p><strong>Notes</strong></p>
+<p>See <a href='/api/range'><a href='/api/range/#range'>Range</a></a> for the why of a context manager here.</p>
+<hr />
 <h3 id="get_lines">get_lines()<a class="headerlink" href="#get_lines" title="Permanent link">&para;</a></h3>
 <p>Get the text lines of the buffer.</p>
 <p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">get_lines</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">end_</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">list</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">get_lines</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">end_</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">list</span>
 </code></pre></div>
 <table>
 <thead>
@@ -901,14 +955,14 @@ with the given handle (buf).</p>
 <p>See <a href="https://neovim.io/doc/user/api.html#nvim_buf_get_lines()">nvim_buf_get_lines</a>. By default, return all the lines of the
 buffer.</p>
 <p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">get_lines</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1">-- Get the lines from the second to the second before the end.</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">get_lines</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1">-- Get the lines from the second to the second before the end.</span>
 </code></pre></div>
 <hr />
 <h3 id="set_lines">set_lines()<a class="headerlink" href="#set_lines" title="Permanent link">&para;</a></h3>
 <p>Replaces text in a buffer.</p>
 <p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">set_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">:</span> <span class="p">[</span><span class="n">string</span><span class="p">],</span> <span class="n">start</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">end_</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">iterator</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">set_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">:</span> <span class="p">[</span><span class="n">string</span><span class="p">],</span> <span class="n">start</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">end_</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">iterator</span>
 </code></pre></div>
 <table>
 <thead>
@@ -958,13 +1012,13 @@ buffer.</p>
 <p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_buf_set_lines()">nvim_buf_set_lines</a>. If start and end_ are not provided, the
 lines are appended to the buffer.</p>
 <p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">set_lines</span><span class="p">({</span><span class="s2">&quot;jean-jean&quot;</span><span class="p">,</span> <span class="s2">&quot;jean-jean jacques&quot;</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">set_lines</span><span class="p">({</span><span class="s2">&quot;jean-jean&quot;</span><span class="p">,</span> <span class="s2">&quot;jean-jean jacques&quot;</span><span class="p">})</span>
 </code></pre></div>
 <hr />
 <h3 id="delete">delete()<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h3>
 <p>Delete a buffer.</p>
 <p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">delete</span><span class="p">(</span><span class="n">options</span><span class="p">:</span> <span class="p">[</span><span class="n">table</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">delete</span><span class="p">(</span><span class="n">options</span><span class="p">:</span> <span class="p">[</span><span class="n">table</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
 </code></pre></div>
 <table>
 <thead>
@@ -988,7 +1042,7 @@ lines are appended to the buffer.</p>
 <p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_buf_delete()">nvim_buf_delete</a>. See this link for more informations about
 the options.</p>
 <p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">delete</span><span class="p">({</span><span class="n">force</span> <span class="o">=</span> <span class="kc">true</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">delete</span><span class="p">({</span><span class="n">force</span> <span class="o">=</span> <span class="kc">true</span><span class="p">})</span>
 </code></pre></div>
 <hr />
 

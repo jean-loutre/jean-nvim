@@ -2,62 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/api/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/autocommand/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/buffer/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/context-handler/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/context/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/logging/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://jean-loutre.github.io/jean-nvim/api/namespace/</loc>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/path/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://jean-loutre.github.io/jean-nvim/api/range/</loc>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/test-suite/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/api/user-command/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/usage/_index/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jean-loutre.github.io/jean-nvim/usage/context/</loc>
-         <lastmod>2022-12-17</lastmod>
+         <lastmod>2022-12-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
