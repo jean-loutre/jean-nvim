@@ -579,6 +579,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -682,6 +689,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -774,6 +788,60 @@ edit context is exited.</p>
 </tr>
 </tbody>
 </table>
+<hr />
+<h3 id="insert">insert()<a class="headerlink" href="#insert" title="Permanent link">&para;</a></h3>
+<p>Insert lines at the given position, relative to the range boundaries.</p>
+<p><strong>Signature</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">function</span> <span class="nc">Range</span><span class="p">:</span><span class="nf">insert</span><span class="p">({</span><span class="n">string</span><span class="p">}:</span> <span class="n">content</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Range</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>{string}</code>*</td>
+<td align="left"><code>content</code></td>
+<td align="left">Table of lines to insert.</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>row</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">Insert row, relative to this range.</td>
+<td align="left">-1</td>
+</tr>
+<tr>
+<td align="left"><code>col</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">Insert col, relative to this range.</td>
+<td align="left">-1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="left">Returns</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code><a href='/api/range'><a href='/api/range/#range'>Range</a></a></code></td>
+<td align="left">Range covering the inserted content.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<p>row and col are 0-indexed. If row is negative, it will be interpreted
+as relative to the range end boundary. If no row or col is provided,
+the content will be inserted at the end of this range.</p>
 <hr />
 
 
