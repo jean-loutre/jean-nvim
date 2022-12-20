@@ -21,6 +21,8 @@
 --- @classmod jnvim.range.Range
 local Object = require("jlua.object")
 
+local Extmark = require("jnvim.extmark")
+
 --- @class jnvim.range.Range
 local Range = Object:extend()
 
@@ -40,54 +42,22 @@ function Range:init(
 	self._buffer = buffer
 	self._bounds_namespace = bounds_namespace
 
-	self._start_mark_id = vim.api.nvim_buf_set_extmark(
-		buffer.handle,
-		bounds_namespace.id,
-		start_row,
-		start_col,
-		{}
-	)
-
-	self._end_mark_id = vim.api.nvim_buf_set_extmark(
-		buffer.handle,
-		bounds_namespace.id,
-		end_row,
-		end_col,
-		{}
-	)
+	self._start_mark = Extmark(buffer, bounds_namespace, start_row, start_col)
+	self._end_mark = Extmark(buffer, bounds_namespace, end_row, end_col)
 end
 
 --- @function Range.properties.start:get()
---- Get the start position of this range, as a (row, col) tuple.
---- @treturn (number,number) (row, col) start position.
+--- Get the start position of this range, as a table with a row and a col keys.
+--- @treturn {row:number,col:number} start position.
 function Range.properties.start:get()
-	local bounds = vim.api.nvim_buf_get_extmark_by_id(
-		self._buffer.handle,
-		self._bounds_namespace.id,
-		self._start_mark_id,
-		{}
-	)
-	return {
-		row = bounds[1],
-		col = bounds[2],
-	}
+	return self._start_mark.position
 end
 
 --- @function Range.properties.end_:get()
---- Get the end position of this range, as a (row, col) tuple.
---- @treturn (number,number) (row, col) end position.
+--- Get the end position of this range, as a table with a row and a col keys.
+--- @treturn {row:number,col:number} end position.
 function Range.properties.end_:get()
-	local bounds = vim.api.nvim_buf_get_extmark_by_id(
-		self._buffer.handle,
-		self._bounds_namespace.id,
-		self._end_mark_id,
-		{}
-	)
-
-	return {
-		row = bounds[1],
-		col = bounds[2],
-	}
+	return self._end_mark.position
 end
 
 --- @function Range.properties.text:get()
@@ -119,13 +89,7 @@ function Range.properties.text:set(lines)
 		lines
 	)
 
-	vim.api.nvim_buf_set_extmark(
-		self._buffer.handle,
-		self._bounds_namespace.id,
-		start.row,
-		start.col,
-		{ id = self._start_mark_id }
-	)
+	self._start_mark.position = start
 end
 
 --- Clears a namespace in the pointed buffer's range area.
@@ -180,13 +144,7 @@ function Range:insert(content, row, col)
 		Range(self._buffer, self._bounds_namespace, row, col, row, col)
 	range.text = content
 
-	vim.api.nvim_buf_set_extmark(
-		self._buffer.handle,
-		self._bounds_namespace.id,
-		start.row,
-		start.col,
-		{ id = self._start_mark_id }
-	)
+	self._start_mark.position = start
 
 	return range
 end
