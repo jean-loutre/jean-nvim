@@ -68,4 +68,22 @@ function Suite.insert()
 	)
 end
 
+function Suite.set_extmark()
+	local buffer = Buffer()
+	local namespace = Namespace()
+	local buffer_content = Range(buffer, namespace, 0, 0, 0, -1)
+	buffer_content.text = { "jean-jacques", "jean-pascal" }
+
+	local mark = buffer_content:set_extmark(
+		namespace,
+		1,
+		1,
+		{ end_row = 1, end_col = -3, hl_group = "ErrorMsg" }
+	)
+
+	assert_equals(mark.position, { row = 1, col = 1 })
+	assert_equals(mark.end_row, 1)
+	assert_equals(mark.end_col, 9)
+	assert_equals(mark.hl_group, "ErrorMsg")
+end
 return Suite

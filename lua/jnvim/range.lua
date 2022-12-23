@@ -8,7 +8,7 @@
 ---
 --- local buffer = Buffer()
 --- with(buffer:edit(), function(buffer_range)
---- 	buffer_range:set_text({"hello", "world"})
+--- 	buffer_range.text * {"hello", "world"}
 --- end)
 --- ```
 ---
@@ -114,9 +114,44 @@ end
 --- @tparam[opt=-1] number col Insert col, relative to this range.
 --- @return jnvim.range.Range Range covering the inserted content.
 function Range:insert(content, row, col)
-	row = row or -1
-	col = col or -1
+	row, col = self:_get_absolute_position(row or -1, col or -1)
+	local start = self.start
+	local range =
+		Range(self._buffer, self._bounds_namespace, row, col, row, col)
+	range.text = content
 
+	self._start_mark.position = start
+
+	return range
+end
+
+--- Add an extmark, at a position in this range.
+---
+--- If options.end_row or options.end_col are set, the position will be
+--- intepreted as relative to this range's bounds.
+---
+--- @tparam jnvim.namespace.Namespace namespace Namespace of the mark.
+--- @tparam[opt=0] number row Row of the mark, relative to this range.
+--- @tparam[opt=0] number col Col of the mark, relative to this range.
+--- @tparam[opt={}] table options Additional options to pass to vim.api.nvim_buf_set_extmark.
+--- @return jnvim.extmark.Extmark Wrapper around the created extmark
+function Range:set_extmark(namespace, row, col, options)
+	local end_row = options.end_row
+	local end_col = options.end_col
+
+	if end_row or end_col then
+		end_row, end_col =
+			self:_get_absolute_position(end_row or -1, end_col or -1)
+		options.end_row = end_row
+		options.end_col = end_col
+	end
+
+	row, col = self:_get_absolute_position(row or 0, col or 0)
+
+	return Extmark(self._buffer, namespace, row, col, options)
+end
+
+function Range:_get_absolute_position(row, col)
 	local start = self.start
 	local end_ = self.end_
 
@@ -140,13 +175,7 @@ function Range:insert(content, row, col)
 		col = col + #line
 	end
 
-	local range =
-		Range(self._buffer, self._bounds_namespace, row, col, row, col)
-	range.text = content
-
-	self._start_mark.position = start
-
-	return range
+	return row, col
 end
 
 return Range

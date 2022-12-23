@@ -2,13 +2,13 @@
 ---
 --- Extmark object wrapper can be constructed from jnvim.range.Range objects.
 ---
---- @classmod jnvim.range.Extmark
+--- @classmod jnvim.extmark.Extmark
 local Object = require("jlua.object")
 
 --- @class jnvim.range.Extmark
 local Extmark = Object:extend()
 
---- Use jnvim.range.Range.add_mark to create a mark.
+--- Use jnvim.range.Range.set_mark to create a mark.
 --- @private
 function Extmark:init(buffer, namespace, row, col, options)
 	options = options or {}
@@ -48,6 +48,35 @@ function Extmark.properties.position:set(value)
 		value.row,
 		value.col,
 		{}
+	)
+end
+
+--- @function Extmark.properties.___.get()
+---
+--- Get or set an option on this mark. Any property get can be one of the keys
+--- that can be passed as option to vim.api.nvim_buf_set_extmark, the
+--- corresponding option will be get / set on this mark.
+---
+--- @return any Option value.
+function Extmark:__index(key)
+	local mark_data = vim.api.nvim_buf_get_extmark_by_id(
+		self._buffer.handle,
+		self._namespace.id,
+		self._id,
+		{ details = true }
+	)
+
+	return mark_data[3][key]
+end
+
+function Extmark:_newindex(key, value)
+	local position = self.position
+	vim.api.nvim_buf_set_extmark(
+		self._buffer.handle,
+		self._namespace.id,
+		position.row,
+		position.col,
+		{ id = self._id, [key] = value }
 	)
 end
 

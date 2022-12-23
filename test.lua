@@ -20,6 +20,7 @@ local function run()
 		"logging-tests",
 		"path-tests",
 		"range-tests",
+		"extmark-tests",
 	}
 
 	-- To make assert functions globally accessible
