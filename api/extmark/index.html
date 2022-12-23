@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://jean-loutre.github.io/jean-nvim/api/buffer/">
+        <link rel="canonical" href="https://jean-loutre.github.io/jean-nvim/api/extmark/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
-        <title>Buffer - Jean-Nvim Library</title>
+        <title>Extmark - Jean-Nvim Library</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#buffer" class="md-skip">
+        <a href="#extmark" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Buffer
+              Extmark
             
           </span>
         </div>
@@ -433,6 +433,48 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../buffer/" class="md-nav__link">
+        Buffer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context-handler/" class="md-nav__link">
+        unknown
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        unknown
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -445,12 +487,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Buffer
+          Extmark
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Buffer
+        Extmark
       </a>
       
         
@@ -491,43 +533,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from_handle" class="md-nav__link">
-    from_handle()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#list" class="md-nav__link">
-    list()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edit" class="md-nav__link">
-    edit()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get_lines" class="md-nav__link">
-    get_lines()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set_lines" class="md-nav__link">
-    set_lines()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#delete" class="md-nav__link">
-    delete()
+  <a href="#_newindex" class="md-nav__link">
+    _newindex()
   </a>
   
 </li>
@@ -541,48 +548,6 @@
   
 </nav>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../context-handler/" class="md-nav__link">
-        unknown
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../context/" class="md-nav__link">
-        unknown
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../extmark/" class="md-nav__link">
-        Extmark
-      </a>
     </li>
   
 
@@ -727,43 +692,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from_handle" class="md-nav__link">
-    from_handle()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#list" class="md-nav__link">
-    list()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edit" class="md-nav__link">
-    edit()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get_lines" class="md-nav__link">
-    get_lines()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set_lines" class="md-nav__link">
-    set_lines()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#delete" class="md-nav__link">
-    delete()
+  <a href="#_newindex" class="md-nav__link">
+    _newindex()
   </a>
   
 </li>
@@ -788,45 +718,10 @@
                   
 
 
-<h1 id="buffer">Buffer<a class="headerlink" href="#buffer" title="Permanent link">&para;</a></h1>
-<p>Object oriented wrapper around Neovim buffer.</p>
-<p>This class provides only an OO convenience wrapper around the various lua
-function that handle neovim buffers. No feature here, just another way to
-call the nvim lua api.</p>
+<h1 id="extmark">Extmark<a class="headerlink" href="#extmark" title="Permanent link">&para;</a></h1>
+<p>Object-oriented <a href="https://neovim.io/doc/user/api.html#extmarks">extmarks</a></p>
+<p>Extmark object wrapper can be constructed from <a href='/api/range'><a href='/api/range/#range'>Range</a></a> objects.</p>
 <h2 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h2>
-<p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Buffer</span><span class="p">(</span><span class="n">options</span><span class="p">:</span> <span class="n">table</span><span class="p">[</span><span class="n">any</span><span class="p">])</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th align="left">Parameter</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-<th align="left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>options</code></td>
-<td align="left"><code>table[any]</code></td>
-<td align="left">Buffer options.</td>
-<td align="left">{}</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Notes</strong></p>
-<p>Options should be a table of options to set on this buffer. It can be any
-<a href="https://neovim.io/doc/user/options.html#option-summary">buffer options </a>
-or <a href='/api/buffer'><a href='/api/buffer/#buffer'>Buffer</a></a> property. (For example, you can set a name key, and
-the buffer name will be set through the <a href='/api/buffer/#buffer.name'>Buffer.name</a> property).</p>
-<p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">local</span> <span class="n">buffer</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">({</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;otter list&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">listed</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">modifiable</span> <span class="o">=</span> <span class="kc">false</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">})</span>
-</code></pre></div>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -839,30 +734,23 @@ the buffer name will be set through the <a href='/api/buffer/#buffer.name'>Buffe
 </thead>
 <tbody>
 <tr>
-<td align="center"><code>lines</code></td>
-<td align="center"><code>number</code></td>
-<td align="center">read-only</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="center"><code>name</code></td>
-<td align="center"><code>string</code></td>
+<td align="center"><code>position</code></td>
+<td align="center"><code>{row:number,col:number}</code></td>
 <td align="center">read/write</td>
-<td align="left">Name of the buffer. Wraps <a href="https://neovim.io/doc/user/api.html#nvim_buf_get_name()">nvim_buf_get_name</a> and <a href="https://neovim.io/doc/user/api.html#nvim_buf_set_name()">nvim_buf_set_name</a>.</td>
+<td align="left">Get / set the position of this mark, as a table with a row and a col keys.</td>
 </tr>
 <tr>
 <td align="center"><code>___</code></td>
 <td align="center"><code>any</code></td>
-<td align="center">read/write</td>
-<td align="left">Get or set an option for this buffer. Wraps <a href="https://neovim.io/doc/user/lua.html#vim.bo">vim.bo</a>. See <a href="https://neovim.io/doc/user/options.html#option-summary">the nvim documentation</a> for a list of available options.</td>
+<td align="center">read-only</td>
+<td align="left">Get or set an option on this mark. Any property get can be one of the keys that can be passed as option to <a href="https://neovim.io/doc/user/api.html#nvim_buf_set_extmark()">nvim_buf_set_extmark</a>, the corresponding option will be get / set on this mark.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
-<h3 id="from_handle">from_handle()<a class="headerlink" href="#from_handle" title="Permanent link">&para;</a></h3>
-<p>Wraps a neovim buffer.</p>
+<h3 id="_newindex">_newindex()<a class="headerlink" href="#_newindex" title="Permanent link">&para;</a></h3>
 <p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">.</span><span class="nf">from_handle</span><span class="p">(</span><span class="n">handle</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">function</span> <span class="nc">Extmark</span><span class="p">:</span><span class="nf">_newindex</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="n">any</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
 </code></pre></div>
 <table>
 <thead>
@@ -875,195 +763,19 @@ the buffer name will be set through the <a href='/api/buffer/#buffer.name'>Buffe
 </thead>
 <tbody>
 <tr>
-<td align="left"><code>handle</code>*</td>
-<td align="left"><code>number</code></td>
-<td align="left">Numerical buffer id.</td>
+<td align="left"><code>key</code>*</td>
+<td align="left"><code>any</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>value</code>*</td>
+<td align="left"><code>any</code></td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Notes</strong></p>
-<p>Create an instance of <a href='/api/buffer'><a href='/api/buffer/#buffer'>Buffer</a></a> that wraps the existing buffer
-with the given handle (buf).</p>
-<p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">local</span> <span class="n">buffer</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">vim</span><span class="p">.</span><span class="n">api</span><span class="p">.</span><span class="n">nvim_get_current_buf</span><span class="p">())</span>
-</code></pre></div>
-<hr />
-<h3 id="list">list()<a class="headerlink" href="#list" title="Permanent link">&para;</a></h3>
-<p>Return an iterator existing nvim buffers.</p>
-<p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">.</span><span class="nf">list</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">iterator</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th align="left">Returns</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>jlua.iterator</code></td>
-<td align="left">An iterator of buffer.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Notes</strong></p>
-<p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_list_bufs()">nvim_list_bufs</a>.</p>
-<p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">for</span> <span class="n">buffer</span> <span class="kr">in</span> <span class="n">Buffer</span><span class="p">.</span><span class="n">list</span><span class="p">()</span> <span class="kr">do</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">buffer</span><span class="p">:</span><span class="n">delete</span><span class="p">()</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kr">end</span>
-</code></pre></div>
-<hr />
-<h3 id="edit">edit()<a class="headerlink" href="#edit" title="Permanent link">&para;</a></h3>
-<p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">edit</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
-</code></pre></div>
-<p><strong>Notes</strong></p>
-<p><a href='/api/context/#context'>Context</a> manager getting a <a href='/api/range'><a href='/api/range/#range'>Range</a></a> over the whole buffer as
-context argument.</p>
-<p>If the buffer has the option modifiable = false, it will be
-automatically set to true in the context, and reset to false when the
-context is exited.</p>
-<p>See <a href='/api/range'><a href='/api/range/#range'>Range</a></a> for the why of a context manager here.</p>
-<hr />
-<h3 id="get_lines">get_lines()<a class="headerlink" href="#get_lines" title="Permanent link">&para;</a></h3>
-<p>Get the text lines of the buffer.</p>
-<p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">get_lines</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">end_</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">list</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th align="left">Parameter</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-<th align="left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>start</code></td>
-<td align="left"><code>number</code></td>
-<td align="left">The starting line.</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left"><code>end_</code></td>
-<td align="left"><code>number</code></td>
-<td align="left">The ending line.</td>
-<td align="left">-1</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th align="left">Returns</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>jlua.list</code></td>
-<td align="left">A list of string.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Notes</strong></p>
-<p>See <a href="https://neovim.io/doc/user/api.html#nvim_buf_get_lines()">nvim_buf_get_lines</a>. By default, return all the lines of the
-buffer.</p>
-<p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">get_lines</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1">-- Get the lines from the second to the second before the end.</span>
-</code></pre></div>
-<hr />
-<h3 id="set_lines">set_lines()<a class="headerlink" href="#set_lines" title="Permanent link">&para;</a></h3>
-<p>Replaces text in a buffer.</p>
-<p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">set_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">:</span> <span class="p">[</span><span class="n">string</span><span class="p">],</span> <span class="n">start</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">end_</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jlua</span><span class="p">.</span><span class="n">iterator</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th align="left">Parameter</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-<th align="left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>lines</code>*</td>
-<td align="left"><code>[string]</code></td>
-<td align="left">The text line to append to the buffer.</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"><code>start</code></td>
-<td align="left"><code>number</code></td>
-<td align="left">The starting line.</td>
-<td align="left">-1</td>
-</tr>
-<tr>
-<td align="left"><code>end_</code></td>
-<td align="left"><code>number</code></td>
-<td align="left">The ending line.</td>
-<td align="left">-1</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th align="left">Returns</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>jlua.iterator</code></td>
-<td align="left">An iterator of buffer.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Notes</strong></p>
-<p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_buf_set_lines()">nvim_buf_set_lines</a>. If start and end_ are not provided, the
-lines are appended to the buffer.</p>
-<p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">set_lines</span><span class="p">({</span><span class="s2">&quot;jean-jean&quot;</span><span class="p">,</span> <span class="s2">&quot;jean-jean jacques&quot;</span><span class="p">})</span>
-</code></pre></div>
-<hr />
-<h3 id="delete">delete()<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h3>
-<p>Delete a buffer.</p>
-<p><strong>Signature</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">function</span> <span class="nc">Buffer</span><span class="p">:</span><span class="nf">delete</span><span class="p">(</span><span class="n">options</span><span class="p">:</span> <span class="p">[</span><span class="n">table</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th align="left">Parameter</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-<th align="left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>options</code></td>
-<td align="left"><code>[table]</code></td>
-<td align="left">Delete options</td>
-<td align="left">{}</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Notes</strong></p>
-<p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_buf_delete()">nvim_buf_delete</a>. See this link for more informations about
-the options.</p>
-<p><strong>Usage</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">buffer</span><span class="p">:</span><span class="n">delete</span><span class="p">({</span><span class="n">force</span> <span class="o">=</span> <span class="kc">true</span><span class="p">})</span>
-</code></pre></div>
 <hr />
 
 
@@ -1092,7 +804,7 @@ the options.</p>
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../autocommand/" class="md-footer__link md-footer__link--prev" aria-label="Previous: unknown" rel="prev">
+        <a href="../context/" class="md-footer__link md-footer__link--prev" aria-label="Previous: unknown" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1108,7 +820,7 @@ the options.</p>
       
       
         
-        <a href="../context-handler/" class="md-footer__link md-footer__link--next" aria-label="Next: unknown" rel="next">
+        <a href="../logging/" class="md-footer__link md-footer__link--next" aria-label="Next: unknown" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
