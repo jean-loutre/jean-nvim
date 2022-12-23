@@ -11,6 +11,8 @@ local Buffer = require("jnvim.buffer")
 local Context = require("jnvim.context")
 local Namespace = require("jnvim.namespace")
 
+local unpack = unpack or table.unpack
+
 local LogBuffer = Object:extend()
 
 local function set_highlight(name, link)
@@ -75,7 +77,7 @@ function LogBuffer:_handle(record)
 		return
 	end
 
-	local log_message = format(record.format, record.args)
+	local log_message = format(record.format, unpack(record.args))
 	local log_level = get_level_string(record.level)
 	local log_line = format("{}:{}:{}", log_level, record.logger, log_message)
 	with(self._buffer:edit(), function(buffer)
@@ -101,6 +103,11 @@ local logging = {}
 
 function logging.create_log_buffer(logger_name)
 	return LogBuffer(logger_name).buffer
+end
+
+function logging.open_log(logger_name)
+	local buffer = logging.create_log_buffer(logger_name)
+	vim.api.nvim_win_set_buf(0, buffer.handle)
 end
 
 return logging
