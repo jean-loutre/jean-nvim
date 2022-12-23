@@ -28,4 +28,13 @@ function Namespace.properties.id:get()
 	return self._ns_id
 end
 
+--- @function Namespace.set_highlight
+--- Wraps vim.api.nvim_set_hl for the current namespace.
+--
+--- @tparam string name Highlight group name.
+--- @tparam table  value Highlight group value.
+function Namespace:set_highlight(name, value)
+	vim.api.nvim_set_hl(self._ns_id, name, value)
+end
+
 return Namespace

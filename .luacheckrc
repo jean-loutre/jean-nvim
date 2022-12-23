@@ -54,6 +54,7 @@ stds.nvim = {
 						"nvim_exec_autocmds",
 						"nvim_get_current_buf",
 						"nvim_list_bufs",
+						"nvim_set_hl",
 						"nvim_set_keymap",
 						"nvim_win_set_buf",
 					},

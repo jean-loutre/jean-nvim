@@ -9,11 +9,37 @@ local with = require("jlua.context").with
 
 local Buffer = require("jnvim.buffer")
 local Context = require("jnvim.context")
+local Namespace = require("jnvim.namespace")
 
 local LogBuffer = Object:extend()
 
+local function set_highlight(name, link)
+	vim.api.nvim_set_hl(0, name, { link = link, default = true })
+end
+
+set_highlight("LogDebug", "DiagnosticHint")
+set_highlight("LogInfo", "DiagnosticInfo")
+set_highlight("LogWarning", "DiagnosticWarn")
+set_highlight("LogError", "DiagnosticError")
+set_highlight("LogCritical", "Error")
+
+local function get_level_highlight(level)
+	if level == LOG_LEVEL.DEBUG then
+		return "LogDebug"
+	elseif level == LOG_LEVEL.INFO then
+		return "LogInfo"
+	elseif level == LOG_LEVEL.WARNING then
+		return "LogWarning"
+	elseif level == LOG_LEVEL.ERROR then
+		return "LogError"
+	end
+
+	return "LogCritical"
+end
+
 function LogBuffer:init(logger_name)
 	self._name = logger_name
+	self._highlight_namespace = Namespace()
 
 	self._buffer = Buffer({
 		buftype = "nofile",
@@ -53,7 +79,12 @@ function LogBuffer:_handle(record)
 	local log_level = get_level_string(record.level)
 	local log_line = format("{}:{}:{}", log_level, record.logger, log_message)
 	with(self._buffer:edit(), function(buffer)
-		buffer:insert({ log_line, "" })
+		local line_range = buffer:insert({ log_line, "" })
+		line_range:set_extmark(self._highlight_namespace, 0, 0, {
+			end_row = -1,
+			end_col = -1,
+			hl_group = get_level_highlight(record.level),
+		})
 	end)
 end
 
