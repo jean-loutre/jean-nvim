@@ -395,6 +395,8 @@
         
           
         
+          
+        
       
       
         
@@ -552,6 +554,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set_highlight" class="md-nav__link">
+    set_highlight()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -596,6 +618,20 @@
   
     <li class="md-nav__item">
       <a href="../test-suite/" class="md-nav__link">
+        unknown
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
         unknown
       </a>
     </li>
@@ -663,6 +699,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set_highlight" class="md-nav__link">
+    set_highlight()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -727,6 +783,37 @@ this instance will wrap this same namespace.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="set_highlight">set_highlight()<a class="headerlink" href="#set_highlight" title="Permanent link">&para;</a></h3>
+<p>Wraps <a href="https://neovim.io/doc/user/api.html#nvim_set_hl()">nvim_set_hl</a> for the current namespace.</p>
+<p><strong>Signature</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">function</span> <span class="nc">Namespace</span><span class="p">.</span><span class="nf">set_highlight</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">nil</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>name</code>*</td>
+<td align="left"><code>string</code></td>
+<td align="left">Highlight group name.</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>value</code>*</td>
+<td align="left"><code>table</code></td>
+<td align="left">Highlight group value.</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<hr />
 
 
 
