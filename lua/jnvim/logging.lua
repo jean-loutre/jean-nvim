@@ -79,14 +79,16 @@ function LogBuffer:_handle(record)
 
 	local log_message = format(record.format, unpack(record.args))
 	local log_level = get_level_string(record.level)
-	local log_line = format("{}:{}:{}", log_level, record.logger, log_message)
 	with(self._buffer:edit(), function(buffer)
-		local line_range = buffer:insert({ log_line, "" })
-		line_range:set_extmark(self._highlight_namespace, 0, 0, {
-			end_row = -1,
-			end_col = -1,
-			hl_group = get_level_highlight(record.level),
-		})
+		for message_line in log_message:gmatch("[^\r\n]+") do
+			local log_line = format("{}:{}:{}", log_level, record.logger, message_line)
+			local line_range = buffer:insert({ log_line, "" })
+			line_range:set_extmark(self._highlight_namespace, 0, 0, {
+				end_row = -1,
+				end_col = -1,
+				hl_group = get_level_highlight(record.level),
+			})
+		end
 	end)
 end
 
